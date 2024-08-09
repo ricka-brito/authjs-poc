@@ -23,7 +23,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 			// Process account info only if it hasn't been processed before
 			if (account && !accountInfoProcessed) {
 				console.log("Account Info:", account);
-				token.accessToken = account.access_token;
+				token.accessToken = account.id_token;
 				token.refreshToken = account.refresh_token;
 				console.log("Refresh Token:", token.refreshToken);
 
@@ -34,20 +34,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 		},
 		async session({ session, token, user }) {
 
-        const profilePicture = await fetch(
-        `https://graph.microsoft.com/v1.0/me/photos/648x648/$value`,
-        {
-          headers: {
-            Authorization: `Bearer ${token.accessToken}`,
-          },
-        }
-      )
+      //   const profilePicture = await fetch(
+      //   `https://graph.microsoft.com/v1.0/me/photos/648x648/$value`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token.accessToken}`,
+      //     },
+      //   }
+      // )
       
-      if (profilePicture.ok) {
-        const pictureBuffer = await profilePicture.arrayBuffer()
-        const pictureBase64 = Buffer.from(pictureBuffer).toString("base64")
-        session.user.image = `data:image/jpeg;base64, ${pictureBase64} `
-      }
+      // if (profilePicture.ok) {
+      //   const pictureBuffer = await profilePicture.arrayBuffer()
+      //   const pictureBase64 = Buffer.from(pictureBuffer).toString("base64")
+      //   session.user.image = `data:image/jpeg;base64, ${pictureBase64} `
+      // }
+
+
+      //fix ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
       // } else {
       //   console.log("antes")
       //   try {

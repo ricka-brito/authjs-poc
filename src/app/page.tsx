@@ -4,18 +4,19 @@ import { SignOut } from "@/components/signout";
 import Image from "next/image";
 
 export default async function Home() {
-	const session = await auth();
+  const session = await auth();
 
+  console.log(session);
 
-	console.log(session);
-
-	return (
-		<>
-		{session && session.user}
-    {session?.user.image && <Image src={session.user.image!} alt="julia" width={400} height={400}/>}
-      {session && session.user?.email}
-			<SignIn />
+  return (
+    <>
+      {session?.user?.image && (
+        <Image src={session.user.image!} alt="julia" width={400} height={400} />
+      )}
+      <p>{session && session.user?.email}</p>
+      <p>{session && session.user?.token}</p>
+      <SignIn />
       <SignOut />
-		</>
-	);
+    </>
+  );
 }
